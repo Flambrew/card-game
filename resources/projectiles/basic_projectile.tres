@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ProjectileResource" load_steps=2 format=3 uid="uid://82bwt0xlwswe"]
+
+[ext_resource type="Script" uid="uid://c0n8d7ahf86gs" path="res://scripts/projectiles/projectile_resource.gd" id="1_82gw1"]
+
+[resource]
+script = ExtResource("1_82gw1")
+mesh_path = ""
+distance = 0.0
+speed = 25.0
+damage_on_hit = 0.0
+metadata/_custom_type_script = "uid://c0n8d7ahf86gs"

@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://bgsn6wchh1dai"]
+
+[node name="ProjectileManager" type="Node3D" groups=["ProjectileManager"]]

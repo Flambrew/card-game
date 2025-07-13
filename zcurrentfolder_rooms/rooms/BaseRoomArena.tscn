@@ -1,0 +1,160 @@
+[gd_scene load_steps=11 format=3 uid="uid://t1yvyhwkdxdh"]
+
+[ext_resource type="Script" uid="uid://bqsamxodvki2" path="res://zcurrentfolder_rooms/base_room.gd" id="1_sq8p5"]
+[ext_resource type="Material" uid="uid://bb52ksnuq24sl" path="res://assets/PlaceholderMaterial0.tres" id="2_vqilm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xpjlf"]
+size = Vector3(120, 2, 120)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_omclk"]
+size = Vector3(120, 80, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cy5xp"]
+size = Vector3(2, 80, 120)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rnuea"]
+size = Vector3(120, 80, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rw8we"]
+size = Vector3(2, 80, 120)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_chdgm"]
+size = Vector3(120, 2, 120)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_kmjin"]
+material = ExtResource("2_vqilm")
+size = Vector2(40, 40)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j72op"]
+size = Vector3(5, 10, 10)
+
+[node name="BaseRoomArena" type="Node3D"]
+script = ExtResource("1_sq8p5")
+
+[node name="Bounds" type="Node3D" parent="."]
+
+[node name="Collider" type="StaticBody3D" parent="Bounds"]
+
+[node name="Floor" type="CollisionShape3D" parent="Bounds/Collider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+shape = SubResource("BoxShape3D_xpjlf")
+
+[node name="NorthWall" type="CollisionShape3D" parent="Bounds/Collider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, -61)
+shape = SubResource("BoxShape3D_omclk")
+
+[node name="EastWall" type="CollisionShape3D" parent="Bounds/Collider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61, 40, 0)
+shape = SubResource("BoxShape3D_cy5xp")
+
+[node name="SouthWall" type="CollisionShape3D" parent="Bounds/Collider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, 61)
+shape = SubResource("BoxShape3D_rnuea")
+
+[node name="WestWall" type="CollisionShape3D" parent="Bounds/Collider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61, 40, 0)
+shape = SubResource("BoxShape3D_rw8we")
+
+[node name="Ceiling" type="CollisionShape3D" parent="Bounds/Collider"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 81, 0)
+shape = SubResource("BoxShape3D_chdgm")
+
+[node name="Mesh" type="Node3D" parent="Bounds"]
+
+[node name="Floor" type="MeshInstance3D" parent="Bounds/Mesh"]
+transform = Transform3D(3, 0, 0, 0, 1, 0, 0, 0, 3, 0, 0, 0)
+mesh = SubResource("PlaneMesh_kmjin")
+
+[node name="NorthWall" type="MeshInstance3D" parent="Bounds/Mesh"]
+transform = Transform3D(3, 0, 0, 0, -4.37114e-08, -2, 0, 1, -8.74228e-08, 0, 40, -60)
+mesh = SubResource("PlaneMesh_kmjin")
+
+[node name="EastWall" type="MeshInstance3D" parent="Bounds/Mesh"]
+transform = Transform3D(-8.74228e-08, -1, 0, 2, -4.37114e-08, 0, 0, 0, 3, 60, 40, 0)
+mesh = SubResource("PlaneMesh_kmjin")
+
+[node name="SouthWall" type="MeshInstance3D" parent="Bounds/Mesh"]
+transform = Transform3D(3, 0, 0, 0, -4.37114e-08, 2, 0, -1, -8.74228e-08, 0, 40, 60)
+mesh = SubResource("PlaneMesh_kmjin")
+
+[node name="WestWall" type="MeshInstance3D" parent="Bounds/Mesh"]
+transform = Transform3D(-8.74228e-08, 1, 0, -2, -4.37114e-08, 0, 0, 0, 3, -60, 40, 0)
+mesh = SubResource("PlaneMesh_kmjin")
+
+[node name="Ceiling" type="MeshInstance3D" parent="Bounds/Mesh"]
+transform = Transform3D(3, 0, 0, 0, -1, 4.52987e-07, 0, -1.50996e-07, -3, 0, 80, 0)
+mesh = SubResource("PlaneMesh_kmjin")
+
+[node name="Doors" type="Node3D" parent="."]
+
+[node name="NNWDoor" type="Area3D" parent="Doors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 2, -60)
+
+[node name="Collider" type="CollisionShape3D" parent="Doors/NNWDoor"]
+shape = SubResource("BoxShape3D_j72op")
+
+[node name="NorthDoor" type="Area3D" parent="Doors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -60)
+
+[node name="Collider" type="CollisionShape3D" parent="Doors/NorthDoor"]
+shape = SubResource("BoxShape3D_j72op")
+
+[node name="NNEDoor" type="Area3D" parent="Doors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 2, -60)
+
+[node name="Collider" type="CollisionShape3D" parent="Doors/NNEDoor"]
+shape = SubResource("BoxShape3D_j72op")
+
+[node name="ENEDoor" type="Area3D" parent="Doors"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 60, 2, -40)
+
+[node name="Collider" type="CollisionShape3D" parent="Doors/ENEDoor"]
+shape = SubResource("BoxShape3D_j72op")
+
+[node name="EastDoor" type="Area3D" parent="Doors"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 60, 2, 0)
+
+[node name="Collider" type="CollisionShape3D" parent="Doors/EastDoor"]
+shape = SubResource("BoxShape3D_j72op")
+
+[node name="ESEDoor" type="Area3D" parent="Doors"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 60, 2, 40)
+
+[node name="Collider" type="CollisionShape3D" parent="Doors/ESEDoor"]
+shape = SubResource("BoxShape3D_j72op")
+
+[node name="SSEDoor" type="Area3D" parent="Doors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 2, 60)
+
+[node name="Collider" type="CollisionShape3D" parent="Doors/SSEDoor"]
+shape = SubResource("BoxShape3D_j72op")
+
+[node name="SouthDoor" type="Area3D" parent="Doors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 60)
+
+[node name="Collider" type="CollisionShape3D" parent="Doors/SouthDoor"]
+shape = SubResource("BoxShape3D_j72op")
+
+[node name="SSWDoor" type="Area3D" parent="Doors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40, 2, 60)
+
+[node name="Collider" type="CollisionShape3D" parent="Doors/SSWDoor"]
+shape = SubResource("BoxShape3D_j72op")
+
+[node name="WSWDoor" type="Area3D" parent="Doors"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -60, 2, 40)
+
+[node name="Collider" type="CollisionShape3D" parent="Doors/WSWDoor"]
+shape = SubResource("BoxShape3D_j72op")
+
+[node name="WestDoor" type="Area3D" parent="Doors"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -60, 2, 0)
+
+[node name="Collider" type="CollisionShape3D" parent="Doors/WestDoor"]
+shape = SubResource("BoxShape3D_j72op")
+
+[node name="WNWDoor" type="Area3D" parent="Doors"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -60, 2, -40)
+
+[node name="Collider" type="CollisionShape3D" parent="Doors/WNWDoor"]
+shape = SubResource("BoxShape3D_j72op")

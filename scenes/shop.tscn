@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://crnf6wwgpipwc"]
+
+[ext_resource type="PackedScene" uid="uid://di6wuepxq78er" path="res://scenes/purchase_point.tscn" id="1_lx5au"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xfvoa"]
+noise_type = 5
+frequency = 0.75
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1l46r"]
+noise = SubResource("FastNoiseLite_xfvoa")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_032fp"]
+albedo_color = Color(0.378203, 0.227898, 0.0326423, 1)
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_1l46r")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2fc2m"]
+material = SubResource("StandardMaterial3D_032fp")
+size = Vector2(10, 10)
+
+[node name="Shop" type="Node3D"]
+
+[node name="Room" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_2fc2m")
+
+[node name="PurchasePoint" parent="." instance=ExtResource("1_lx5au")]
+transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, 4, 0, 1.5)

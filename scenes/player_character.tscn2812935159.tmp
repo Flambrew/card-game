@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://g5sdvvskyy2g"]
+
+[ext_resource type="Script" uid="uid://dknx4ck30a6t8" path="res://scripts/player_character.gd" id="1_56udc"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6r27q"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_kww55"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_56udc"]
+
+[node name="PlayerCharacter" type="CharacterBody3D"]
+script = ExtResource("1_56udc")
+speed = 10.0
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_6r27q")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_kww55")
+skeleton = NodePath("../Collider")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot"]
+shape = SubResource("SphereShape3D_56udc")
+spring_length = 5.0
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D"]
+unique_name_in_owner = true
+
+[node name="SightRaycast" type="RayCast3D" parent="CameraPivot/SpringArm3D"]
+
+[node name="ProjectileOrigin" type="Node3D" parent="."]

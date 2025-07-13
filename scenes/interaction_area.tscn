@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdceexvy2yt07"]
+
+[ext_resource type="Script" uid="uid://i3dcjb1okbm6" path="res://scripts/interaction_area.gd" id="1_40t11"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_qlu2m"]
+height = 1.0
+radius = 1.0
+
+[sub_resource type="TorusMesh" id="TorusMesh_40t11"]
+inner_radius = 0.9
+
+[node name="InteractionArea" type="Area3D"]
+script = ExtResource("1_40t11")
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("CylinderShape3D_qlu2m")
+
+[node name="DebugMesh" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("TorusMesh_40t11")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

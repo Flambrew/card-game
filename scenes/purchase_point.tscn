@@ -1,0 +1,53 @@
+[gd_scene load_steps=11 format=3 uid="uid://di6wuepxq78er"]
+
+[ext_resource type="PackedScene" uid="uid://cdceexvy2yt07" path="res://scenes/interaction_area.tscn" id="1_aelk3"]
+[ext_resource type="Script" uid="uid://dyqbxta6ff3jg" path="res://scripts/purchase_point.gd" id="1_wbdlf"]
+[ext_resource type="PackedScene" uid="uid://oaup3a54q1tn" path="res://scenes/shop_item_card.tscn" id="3_lyjnn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gyyp3"]
+size = Vector3(2, 1.5, 1.5)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_lyjnn"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_c4jxx"]
+noise = SubResource("FastNoiseLite_lyjnn")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gyyp3"]
+albedo_color = Color(0.919372, 0.480489, 0.208282, 1)
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_c4jxx")
+
+[sub_resource type="BoxMesh" id="BoxMesh_gyyp3"]
+material = SubResource("StandardMaterial3D_gyyp3")
+size = Vector3(2, 1.5, 1.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lyjnn"]
+albedo_color = Color(0.298795, 0.143559, 0.024025, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_aelk3"]
+material = SubResource("StandardMaterial3D_lyjnn")
+
+[node name="PurchasePoint" type="StaticBody3D"]
+script = ExtResource("1_wbdlf")
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("BoxShape3D_gyyp3")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+mesh = SubResource("BoxMesh_gyyp3")
+
+[node name="FaceMesh" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(0.5, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.5, -0.75)
+mesh = SubResource("BoxMesh_aelk3")
+
+[node name="InteractionArea" parent="." instance=ExtResource("1_aelk3")]
+unique_name_in_owner = true
+
+[node name="Stock" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25, 0)
+
+[node name="ShopItemCard" parent="Stock" instance=ExtResource("3_lyjnn")]
+stock = 3

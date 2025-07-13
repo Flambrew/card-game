@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://di6wuepxq78er"]
+
+[ext_resource type="Script" uid="uid://b2ipxag4n6eyt" path="res://scenes/purchase_point.gd" id="1_aelk3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gyyp3"]
+size = Vector3(2, 1.5, 1.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gyyp3"]
+albedo_color = Color(0, 0.749434, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gyyp3"]
+material = SubResource("StandardMaterial3D_gyyp3")
+size = Vector3(2, 1.5, 1.5)
+
+[node name="PurchasePoint" type="StaticBody3D"]
+script = ExtResource("1_aelk3")
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("BoxShape3D_gyyp3")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+mesh = SubResource("BoxMesh_gyyp3")
+
+[node name="Stock" type="Node3D" parent="."]

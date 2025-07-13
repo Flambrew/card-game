@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpr3t4jwe7qha"]
+
+[ext_resource type="Script" uid="uid://cyfbx8cpl8bu6" path="res://scripts/projectiles/base_projectile.gd" id="1_kg56o"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1yk01"]
+radius = 0.1
+
+[sub_resource type="SphereMesh" id="SphereMesh_kg56o"]
+radius = 0.1
+height = 0.2
+
+[node name="BaseProjectile" type="CharacterBody3D"]
+script = ExtResource("1_kg56o")
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_1yk01")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_kg56o")
+skeleton = NodePath("../Collider")

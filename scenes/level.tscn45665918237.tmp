@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=3 uid="uid://ckmobeiqs3jfa"]
+
+[ext_resource type="PackedScene" uid="uid://di6wuepxq78er" path="res://scenes/purchase_point.tscn" id="3_b2cq8"]
+[ext_resource type="PackedScene" uid="uid://g5sdvvskyy2g" path="res://scenes/player_character.tscn" id="3_urvlt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5xgho"]
+size = Vector3(200, 1, 200)
+
+[sub_resource type="Gradient" id="Gradient_w8frs"]
+offsets = PackedFloat32Array(0.325397, 0.420635, 0.507937, 0.579365, 0.666667)
+colors = PackedColorArray(1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mx8sn"]
+gradient = SubResource("Gradient_w8frs")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ppgk2"]
+albedo_texture = SubResource("GradientTexture2D_mx8sn")
+
+[sub_resource type="BoxMesh" id="BoxMesh_u52ul"]
+material = SubResource("StandardMaterial3D_ppgk2")
+size = Vector3(200, 1, 200)
+
+[sub_resource type="GDScript" id="GDScript_w7c3h"]
+script/source = "
+"
+
+[node name="Level" type="Node3D"]
+
+[node name="Stage" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="RigidBody3D" type="StaticBody3D" parent="Stage"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stage/RigidBody3D"]
+shape = SubResource("BoxShape3D_5xgho")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Stage"]
+mesh = SubResource("BoxMesh_u52ul")
+skeleton = NodePath("../RigidBody3D")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Stage"]
+transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 13.5077, 0)
+shadow_enabled = true
+
+[node name="PlayerCharacter" parent="." instance=ExtResource("3_urvlt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="PurchasePoint0" parent="." instance=ExtResource("3_b2cq8")]
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 5, 0, -5)
+
+[node name="PurchasePoint1" parent="." instance=ExtResource("3_b2cq8")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -7)
+script = SubResource("GDScript_w7c3h")
+
+[node name="PurchasePoint2" parent="." instance=ExtResource("3_b2cq8")]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -5, 0, -5)
+script = SubResource("GDScript_w7c3h")
