@@ -31,9 +31,6 @@ func _ready() -> void:
 	all_rooms.append(room)
 	current = room
 
-func _process(delta:float) -> void:
-	print(current.id)
-
 func change_room(exit_door:Door) -> void:
 	var room
 	if not exit_door.connection:
@@ -47,9 +44,12 @@ func change_room(exit_door:Door) -> void:
 	var root = get_tree().get_first_node_in_group("GameScene")
 	root.remove_child(get_tree().get_first_node_in_group("Room"))
 	root.add_child(room)
-	room.enter(exit_door)
+	room.enter(exit_door.connection)
 	
 	current = room
+	print("room_id: ", current.id, ", room: ", current)
+	
+	# so theres some weird stuff with resetting backwards but otherwise this is workinnnnn!!!!!
 
 func new_random_room() -> Room:
 	return room_list[randi_range(0, room_list.size() - 1)].instantiate()

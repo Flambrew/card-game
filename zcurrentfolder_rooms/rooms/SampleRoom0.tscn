@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://bcy3o1tu5y36x"]
 
-[ext_resource type="Material" uid="uid://bb52ksnuq24sl" path="res://assets/PlaceholderMaterial0.tres" id="1_d5wos"]
-[ext_resource type="Script" uid="uid://bqsamxodvki2" path="res://zcurrentfolder_rooms/room.gd" id="1_y6ex3"]
-[ext_resource type="PackedScene" uid="uid://dhy3q6ll1270r" path="res://zcurrentfolder_rooms/door.tscn" id="2_yh6ns"]
+[ext_resource type="Script" uid="uid://bqsamxodvki2" path="res://zcurrentfolder_rooms/room.gd" id="1_fphfp"]
+[ext_resource type="Material" uid="uid://bb52ksnuq24sl" path="res://assets/PlaceholderMaterial0.tres" id="2_inh2x"]
+[ext_resource type="PackedScene" uid="uid://dhy3q6ll1270r" path="res://zcurrentfolder_rooms/door.tscn" id="3_2dwns"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xpjlf"]
 size = Vector3(40, 2, 40)
@@ -23,11 +23,11 @@ size = Vector3(2, 40, 40)
 size = Vector3(40, 2, 40)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_kmjin"]
-material = ExtResource("1_d5wos")
+material = ExtResource("2_inh2x")
 size = Vector2(40, 40)
 
-[node name="SampleRoom" type="StaticBody3D" node_paths=PackedStringArray("doors")]
-script = ExtResource("1_y6ex3")
+[node name="Room" type="StaticBody3D" node_paths=PackedStringArray("doors")]
+script = ExtResource("1_fphfp")
 doors = [NodePath("Doors/Door_0"), NodePath("Doors/Door_1")]
 
 [node name="Floor" type="CollisionShape3D" parent="."]
@@ -88,10 +88,10 @@ omni_range = 35.0
 
 [node name="Doors" type="Node3D" parent="."]
 
-[node name="Door_0" parent="Doors" node_paths=PackedStringArray("room") instance=ExtResource("2_yh6ns")]
+[node name="Door_0" parent="Doors" node_paths=PackedStringArray("room") instance=ExtResource("3_2dwns")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20)
 room = NodePath("../..")
 
-[node name="Door_1" parent="Doors" node_paths=PackedStringArray("room") instance=ExtResource("2_yh6ns")]
+[node name="Door_1" parent="Doors" node_paths=PackedStringArray("room") instance=ExtResource("3_2dwns")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -20, 0, 0)
 room = NodePath("../..")

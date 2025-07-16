@@ -1,8 +1,8 @@
 class_name Door extends Node3D
 
-@onready var interaction_area = %InteractionArea
-@onready var debug_mesh = %DebugMesh
-@onready var exit_point = %ExitPoint
+@onready var interaction_area:InteractionArea = %InteractionArea
+@onready var debug_mesh:MeshInstance3D = %DebugMesh
+@onready var exit_point:Node3D = %ExitPoint
 
 @export var room:Room
 
