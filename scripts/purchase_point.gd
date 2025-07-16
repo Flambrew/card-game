@@ -36,7 +36,7 @@ func _process(delta:float) -> void:
 		else:
 			child.label.text = ""
 	
-	if InteractionManager.key_pressed and cooldown<=0 and interaction_area.is_active and index!=-1:
+	if InteractionManager.key_pressed and interaction_area.is_active and cooldown<=0 and index!=-1:
 		var child:ShopItem = stock.get_child(index)
 		var item:ShopItem = purchase(index)
 		print(index, ", ", item)

@@ -1,0 +1,102 @@
+[gd_scene load_steps=11 format=3 uid="uid://bcy3o1tu5y36x"]
+
+[ext_resource type="Material" uid="uid://bb52ksnuq24sl" path="res://assets/PlaceholderMaterial0.tres" id="1_d5wos"]
+[ext_resource type="PackedScene" uid="uid://dhy3q6ll1270r" path="res://zcurrentfolder_rooms/door.tscn" id="2_yh6ns"]
+
+[sub_resource type="GDScript" id="GDScript_yh6ns"]
+script/source = "class_name BaseRoomSingle extends BaseRoom
+
+func _init():
+	super()
+	
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xpjlf"]
+size = Vector3(40, 2, 40)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_omclk"]
+size = Vector3(40, 40, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cy5xp"]
+size = Vector3(2, 40, 40)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rnuea"]
+size = Vector3(40, 40, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rw8we"]
+size = Vector3(2, 40, 40)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_chdgm"]
+size = Vector3(40, 2, 40)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_kmjin"]
+material = ExtResource("1_d5wos")
+size = Vector2(40, 40)
+
+[node name="SampleRoom" type="StaticBody3D"]
+script = SubResource("GDScript_yh6ns")
+
+[node name="Floor" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+shape = SubResource("BoxShape3D_xpjlf")
+
+[node name="NorthWall" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, -21)
+shape = SubResource("BoxShape3D_omclk")
+
+[node name="EastWall" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 20, 0)
+shape = SubResource("BoxShape3D_cy5xp")
+
+[node name="SouthWall" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 21)
+shape = SubResource("BoxShape3D_rnuea")
+
+[node name="WestWall" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 20, 0)
+shape = SubResource("BoxShape3D_rw8we")
+
+[node name="Ceiling" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 41, 0)
+shape = SubResource("BoxShape3D_chdgm")
+
+[node name="DebugMeshParent" type="Node3D" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="Floor" type="MeshInstance3D" parent="DebugMeshParent"]
+mesh = SubResource("PlaneMesh_kmjin")
+
+[node name="NorthWall" type="MeshInstance3D" parent="DebugMeshParent"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 20, -20)
+mesh = SubResource("PlaneMesh_kmjin")
+
+[node name="EastWall" type="MeshInstance3D" parent="DebugMeshParent"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 20, 20, 0)
+mesh = SubResource("PlaneMesh_kmjin")
+
+[node name="SouthWall" type="MeshInstance3D" parent="DebugMeshParent"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 20, 20)
+mesh = SubResource("PlaneMesh_kmjin")
+
+[node name="WestWall" type="MeshInstance3D" parent="DebugMeshParent"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -20, 20, 0)
+mesh = SubResource("PlaneMesh_kmjin")
+
+[node name="Ceiling" type="MeshInstance3D" parent="DebugMeshParent"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 40, 0)
+mesh = SubResource("PlaneMesh_kmjin")
+
+[node name="Light" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
+light_energy = 5.0
+omni_range = 25.0
+
+[node name="Doors" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Door_0" parent="Doors" instance=ExtResource("2_yh6ns")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20)
+
+[node name="Door_1" parent="Doors" instance=ExtResource("2_yh6ns")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -20, 0, 0)

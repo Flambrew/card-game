@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhy3q6ll1270r"]
+
+[ext_resource type="Script" uid="uid://dl1576teirjky" path="res://zcurrentfolder_rooms/door.gd" id="1_ba8gm"]
+[ext_resource type="PackedScene" uid="uid://cdceexvy2yt07" path="res://scenes/interaction_area.tscn" id="2_v6xrn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v6xrn"]
+albedo_color = Color(0.873617, 0.186031, 0.183655, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_v6xrn"]
+material = SubResource("StandardMaterial3D_v6xrn")
+inner_radius = 0.45
+outer_radius = 0.5
+
+[node name="Door" type="Node3D"]
+script = ExtResource("1_ba8gm")
+
+[node name="ExitPoint" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1)
+
+[node name="DebugMesh" type="MeshInstance3D" parent="ExitPoint"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+mesh = SubResource("TorusMesh_v6xrn")
+
+[node name="InteractionArea" parent="." instance=ExtResource("2_v6xrn")]
+unique_name_in_owner = true

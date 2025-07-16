@@ -16,4 +16,3 @@ func update(delta:float) -> void:
 	
 	if (target.position - entity.position).length() > 5:
 		Transition.emit(self, "Chase")
-		return

@@ -19,7 +19,6 @@ func _process(delta:float):
 	look_at(position + direction)
 
 func _physics_process(delta: float) -> void:
-	
 	var collision:KinematicCollision3D = move_and_collide(velocity * delta)
 	if collision and not collision.get_collider() == creator:
 		if collision.get_collider() is Entity:
