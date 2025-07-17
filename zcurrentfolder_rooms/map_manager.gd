@@ -47,9 +47,8 @@ func change_room(exit_door:Door) -> void:
 	room.enter(exit_door.connection)
 	
 	current = room
-	print("room_id: ", current.id, ", room: ", current)
-	
-	# so theres some weird stuff with resetting backwards but otherwise this is workinnnnn!!!!!
+	cull_map_tree()
+	print("room_id: ", current.id, ", all_ids: ", all_rooms.map(func(x:Room): return x.id), "\n")
 
 func new_random_room() -> Room:
 	return room_list[randi_range(0, room_list.size() - 1)].instantiate()
@@ -60,15 +59,18 @@ func next_id() -> int:
 
 # TREE CULLING
 func cull_map_tree() -> void:
-	var tree_contents:Array[Room] = _map_tree_to_depth()
+	var tree_contents:Dictionary[int, Room] = _map_tree_to_depth()
 	for room in all_rooms:
-		if room not in tree_contents:
+		if room not in tree_contents.values():
 			all_rooms.erase(room)
 			room.cleanup()
 
-func _map_tree_to_depth(head:Room=current, depth:int=memory) -> Array[Room]:
-	if depth == 0: return [head]
-	var out:Array[Room]
-	for room in head.neighbors:
-		out.append_array(_map_tree_to_depth(room, depth - 1))
+func _map_tree_to_depth(head:Room=current, depth:int=memory) -> Dictionary[int, Room]:
+	if depth == 0: return {head.id: head}
+	var out:Dictionary[int, Room]
+	for door:Door in head.doors:
+		if door.connection:
+			for room in _map_tree_to_depth(door.connection.room, depth - 1).values():
+				out.get_or_add(room.id, room)
+	out.get_or_add(head.id, head)
 	return out
