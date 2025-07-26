@@ -7,7 +7,6 @@ const IMPLEMENT_MANA_COST_SYSTEM_THIS_IS_MANA_COST = 1
 @onready var card_manager:Node3D = %CardManager
 
 @export var entity:Entity
-@export var speed_multiplier:float
 @export var projectile:ProjectileResource
 
 var target:Entity

@@ -3,7 +3,6 @@
 class_name IdleState extends State
 
 @export var entity:Entity
-@export var speed_multiplier:float
 
 var target:Entity
 var duration:float

@@ -9,9 +9,8 @@ var room_list:Array[PackedScene]
 var memory:int = 3 # implement into player
 var current:Room
 var all_rooms:Array[Room]
-var id:int = 0
-
-var prev_door:Door = null
+var tree_contents:Array[Room]
+var id:int = -1
 
 func _init() -> void:
 	ChangeRoom.connect(change_room)
@@ -23,11 +22,11 @@ func _init() -> void:
 			room_list.append(load(ROOM_SCENES + file))
 
 func _ready() -> void:
-	var room = new_random_room()
-	get_tree().get_first_node_in_group("GameScene").add_child(room)
-	room.add_to_group("Room")
+	var room:Room = get_tree().get_first_node_in_group("Room")
+	if not room:
+		room = new_random_room()
+		get_tree().get_first_node_in_group("GameScene").add_child(room)
 	room.enter.call_deferred()
-	
 	all_rooms.append(room)
 	current = room
 
@@ -48,29 +47,28 @@ func change_room(exit_door:Door) -> void:
 	
 	current = room
 	cull_map_tree()
-	print("room_id: ", current.id, ", all_ids: ", all_rooms.map(func(x:Room): return x.id), "\n")
 
 func new_random_room() -> Room:
 	return room_list[randi_range(0, room_list.size() - 1)].instantiate()
 
 func next_id() -> int:
 	id += 1
-	return id - 1
+	return id
 
 # TREE CULLING
 func cull_map_tree() -> void:
-	var tree_contents:Dictionary[int, Room] = _map_tree_to_depth()
+	map_tree_to_depth()
 	for room in all_rooms:
-		if room not in tree_contents.values():
+		if room not in tree_contents:
 			all_rooms.erase(room)
 			room.cleanup()
 
-func _map_tree_to_depth(head:Room=current, depth:int=memory) -> Dictionary[int, Room]:
-	if depth == 0: return {head.id: head}
-	var out:Dictionary[int, Room]
+func map_tree_to_depth(head:Room=current, depth:int=memory) -> void:
+	if depth == memory: 
+		tree_contents = []
+	if head in tree_contents: return
+	tree_contents.append(head)
+	if depth == 0: return
 	for door:Door in head.doors:
 		if door.connection:
-			for room in _map_tree_to_depth(door.connection.room, depth - 1).values():
-				out.get_or_add(room.id, room)
-	out.get_or_add(head.id, head)
-	return out
+			map_tree_to_depth(door.connection.room, depth - 1)

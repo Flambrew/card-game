@@ -2,6 +2,8 @@
 
 class_name State extends Node3D
 
+@export var speed_multiplier:float
+
 signal Transition
 
 func enter() -> void:

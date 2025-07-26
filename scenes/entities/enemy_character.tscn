@@ -1,12 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://d3sly0w7mx0sq"]
+[gd_scene load_steps=10 format=3 uid="uid://d3sly0w7mx0sq"]
 
-[ext_resource type="Script" uid="uid://ddi6kt44cl60d" path="res://scripts/entities/enemies/unnamed_enemy_0/enemy_character.gd" id="1_lhjo6"]
+[ext_resource type="Script" uid="uid://dg5uw7w01jxil" path="res://scripts/entities/enemies/unnamed_enemy_0/enemy_character.gd" id="1_lhjo6"]
 [ext_resource type="Script" uid="uid://djseh2cc4hg6u" path="res://scripts/entities/enemies/state_machine/state_machine.gd" id="2_a650k"]
-[ext_resource type="Script" uid="uid://u6puqhj5l0lg" path="res://scripts/entities/enemies/unnamed_enemy_0/idle_state.gd" id="3_evpvu"]
 [ext_resource type="Script" uid="uid://dmj67pmj8ytya" path="res://scripts/entities/enemies/unnamed_enemy_0/chase_state.gd" id="4_a650k"]
-[ext_resource type="Script" uid="uid://bxk5x2v1x0f3s" path="res://scripts/entities/enemies/unnamed_enemy_0/stand_state.gd" id="5_4vovm"]
-[ext_resource type="Resource" uid="uid://82bwt0xlwswe" path="res://resources/projectiles/basic_projectile.tres" id="5_wghmo"]
-[ext_resource type="Script" uid="uid://dkkvgp7ahetj0" path="res://scripts/entities/enemies/unnamed_enemy_0/fire_follow_state.gd" id="6_xgmuc"]
 [ext_resource type="PackedScene" uid="uid://oehfd740nm0p" path="res://scenes/unsorted/card_manager.tscn" id="7_d557m"]
 [ext_resource type="Script" uid="uid://d0jcsi3rthh81" path="res://scripts/cards/dash.gd" id="8_lhjo6"]
 
@@ -22,19 +18,19 @@ material = SubResource("StandardMaterial3D_4vovm")
 
 [node name="EnemyCharacter" type="CharacterBody3D"]
 script = ExtResource("1_lhjo6")
-speed = 7.0
-max_mana = 2.0
-metadata/_custom_type_script = "uid://ddi6kt44cl60d"
+speed = 10.0
 
 [node name="Collider" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_hgfur")
 
-[node name="Mesh" type="MeshInstance3D" parent="."]
+[node name="Mesh" type="MeshInstance3D" parent="Collider"]
 mesh = SubResource("CapsuleMesh_akhya")
+skeleton = NodePath("../..")
 
-[node name="FaceMesh" type="MeshInstance3D" parent="Mesh"]
+[node name="FaceMesh" type="MeshInstance3D" parent="Collider"]
 transform = Transform3D(0.5, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.6, -0.4)
 mesh = SubResource("BoxMesh_xgmuc")
+skeleton = NodePath("../Mesh")
 
 [node name="ProjectileEmitter" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -0.75)
@@ -46,31 +42,13 @@ target_position = Vector3(0, 0, -1000)
 
 [node name="StateMachine" type="Node3D" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_a650k")
-initial_state = NodePath("Idle")
+initial_state = NodePath("ChaseState")
 
-[node name="Idle" type="Node3D" parent="StateMachine" node_paths=PackedStringArray("entity")]
-script = ExtResource("3_evpvu")
-entity = NodePath("../..")
-speed_multiplier = 0.25
-metadata/_custom_type_script = "uid://u6puqhj5l0lg"
-
-[node name="FireFollow" type="Node3D" parent="StateMachine" node_paths=PackedStringArray("entity")]
-script = ExtResource("6_xgmuc")
-entity = NodePath("../..")
-speed_multiplier = 0.7
-projectile = ExtResource("5_wghmo")
-metadata/_custom_type_script = "uid://dkkvgp7ahetj0"
-
-[node name="Chase" type="Node3D" parent="StateMachine" node_paths=PackedStringArray("entity")]
+[node name="ChaseState" type="Node3D" parent="StateMachine" node_paths=PackedStringArray("entity")]
 script = ExtResource("4_a650k")
 entity = NodePath("../..")
 speed_multiplier = 1.0
 metadata/_custom_type_script = "uid://dmj67pmj8ytya"
-
-[node name="Stand" type="Node3D" parent="StateMachine" node_paths=PackedStringArray("entity")]
-script = ExtResource("5_4vovm")
-entity = NodePath("../..")
-metadata/_custom_type_script = "uid://bxk5x2v1x0f3s"
 
 [node name="CardManager" parent="." node_paths=PackedStringArray("entity") instance=ExtResource("7_d557m")]
 unique_name_in_owner = true
@@ -79,3 +57,6 @@ entity = NodePath("..")
 [node name="Dash" type="Node3D" parent="CardManager"]
 script = ExtResource("8_lhjo6")
 metadata/_custom_type_script = "uid://d0jcsi3rthh81"
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_height_offset = -0.5

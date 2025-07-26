@@ -10,7 +10,7 @@ var connection:Door
 
 func _ready() -> void:
 	if not Utils.debug_toggle:
-		$DebugMesh.hide()
+		debug_mesh.hide()
 
 func _process(delta:float) -> void:
 	if InteractionManager.key_pressed and interaction_area.is_active:

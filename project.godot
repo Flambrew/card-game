@@ -36,6 +36,7 @@ script/templates_search_path="res://scripts/script_templates"
 
 ProjectileManager=""
 PlayerCharacter=""
+Room=""
 
 [input]
 

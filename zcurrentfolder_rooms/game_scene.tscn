@@ -1,7 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://8elri2u5ffgh"]
+[gd_scene load_steps=4 format=3 uid="uid://8elri2u5ffgh"]
 
 [ext_resource type="PackedScene" uid="uid://g5sdvvskyy2g" path="res://scenes/entities/player_character.tscn" id="1_44hqb"]
+[ext_resource type="PackedScene" uid="uid://bcy3o1tu5y36x" path="res://zcurrentfolder_rooms/rooms/SampleRoom0.tscn" id="1_li6v1"]
+[ext_resource type="PackedScene" uid="uid://d3sly0w7mx0sq" path="res://scenes/entities/enemy_character.tscn" id="3_li6v1"]
 
 [node name="GameScene" type="Node3D" groups=["GameScene"]]
 
+[node name="Room" parent="." instance=ExtResource("1_li6v1")]
+
 [node name="PlayerCharacter" parent="." instance=ExtResource("1_44hqb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.436, 1, 14.0067)
+
+[node name="EnemyCharacter" parent="." instance=ExtResource("3_li6v1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
