@@ -47,7 +47,7 @@ initial_state = NodePath("ChaseState")
 [node name="ChaseState" type="Node3D" parent="StateMachine" node_paths=PackedStringArray("entity")]
 script = ExtResource("4_a650k")
 entity = NodePath("../..")
-speed_multiplier = 1.0
+speed_multiplier = 0.8
 metadata/_custom_type_script = "uid://dmj67pmj8ytya"
 
 [node name="CardManager" parent="." node_paths=PackedStringArray("entity") instance=ExtResource("7_d557m")]
